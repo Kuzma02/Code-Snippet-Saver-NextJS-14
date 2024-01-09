@@ -1,0 +1,33 @@
+"use client";
+import React, { useState } from "react";
+import type { Snipper } from "@prisma/client";
+import Editor from "@monaco-editor/react";
+import * as actions from "@/actions";
+
+
+interface SnippetEditFormProps {
+  snippet: Snipper;
+}
+
+export default function SnippetEditForm({ snippet }: SnippetEditFormProps) {
+  const [code, setCode] = useState(snippet.code);
+
+  const handleEditorChange = (value: string = "") => {
+    setCode(value);
+  };
+
+  
+
+  return (
+    <div>
+      <Editor
+        height="40vh"
+        theme="vs-dark"
+        language="javascript"
+        defaultValue={snippet.code}
+        options={{ minimap: { enabled: false } }}
+        onChange={handleEditorChange}
+      />
+    </div>
+  );
+}
